@@ -1,0 +1,344 @@
+/* General Styling */
+:root {
+    --primary-color: #E91E63; /* Pink */
+    --secondary-color: #FFC107; /* Amber */
+    --dark-color: #212121; /* Dark Grey */
+    --light-color: #FFFFFF; /* White */
+    --background-color: #F5F5F5; /* Light Grey BG */
+    --font-family: 'Poppins', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--dark-color);
+    line-height: 1.6;
+    background-color: var(--light-color);
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--dark-color);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1502318217862-aa4e294ba65b?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    color: var(--light-color);
+    text-align: center;
+    padding: 100px 0;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.hero .main-headline {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+.hero-features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+.hero-features i {
+    color: var(--secondary-color);
+    margin-right: 8px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+}
+
+.btn-primary:hover {
+    background-color: #c2185b;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: none;
+    border: 2px solid var(--light-color);
+    color: var(--light-color);
+    margin-left: 15px;
+}
+
+.btn-secondary:hover {
+    background-color: var(--light-color);
+    color: var(--dark-color);
+}
+
+/* Features Bar */
+.features-bar {
+    background: var(--light-color);
+    padding: 60px 0;
+}
+
+.features-bar .container {
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.feature-item {
+    max-width: 300px;
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.feature-item h3 {
+    margin-bottom: 10px;
+}
+
+/* Trust Seals */
+.trust-seals {
+    background: var(--background-color);
+    padding: 20px 0;
+}
+.trust-seals .container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-weight: 600;
+    color: #555;
+}
+.trust-seals i {
+    color: var(--primary-color);
+    margin-right: 8px;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background: var(--background-color);
+}
+.chat-container {
+    max-width: 700px;
+    margin: auto;
+    background: var(--light-color);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+.chat-bubble {
+    background: #e9e9eb;
+    padding: 15px 20px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    max-width: 85%;
+    position: relative;
+    animation: slideUp 0.5s ease-out forwards;
+    opacity: 0;
+}
+.chat-bubble.received {
+    border-bottom-left-radius: 5px;
+}
+.chat-bubble .author-name {
+    color: var(--primary-color);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 5px;
+}
+.chat-bubble .timestamp {
+    font-size: 0.75rem;
+    color: #777;
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+}
+.date-divider {
+    text-align: center;
+    margin: 20px 0;
+}
+.date-divider span {
+    background: #d1d1d6;
+    color: var(--light-color);
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Why Love Section */
+.why-love {
+    padding: 80px 0;
+}
+.reasons {
+    display: flex;
+    gap: 30px;
+    text-align: center;
+}
+.reason i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+.reason h3 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+/* How It Works */
+.how-it-works {
+    padding: 80px 0;
+    background: var(--background-color);
+}
+.steps {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    gap: 30px;
+}
+.step {
+    background: var(--light-color);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    flex: 1;
+}
+.step-number {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: var(--light-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto 20px auto;
+}
+.step h3 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* Final CTA Section */
+.final-cta {
+    background: var(--dark-color);
+    color: var(--light-color);
+    text-align: center;
+    padding: 80px 0;
+}
+.final-cta h2 {
+    color: var(--light-color);
+    font-size: 3rem;
+}
+.final-cta p {
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+.btn-large {
+    padding: 15px 40px;
+    font-size: 1.2rem;
+}
+.final-guarantees {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    font-weight: 600;
+}
+.final-guarantees i {
+    color: var(--secondary-color);
+    margin-right: 8px;
+}
+.final-testimonial {
+    margin-top: 40px;
+    font-style: italic;
+    color: #ccc;
+}
+.final-testimonial p {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+.final-testimonial span {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--light-color);
+}
+.start-link {
+    margin-top: 30px;
+}
+.start-link a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h2 { font-size: 2rem; }
+    .hero .main-headline { font-size: 2.5rem; }
+    
+    .hero-features, .features-bar .container, .trust-seals .container, .reasons, .steps, .final-guarantees {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .cta-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    .btn-secondary {
+        margin-left: 0;
+    }
+} 

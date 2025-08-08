@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uma Surpresa Para Você</title>
+    
+    <style>
+        /* ESTILOS GERAIS E FUNDO FIXO */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            background: linear-gradient(-45deg, #4c0a2a, #8c2a5d, #233a6d, #0e152e);
+            background-size: 400% 400%;
+            background-attachment: fixed;
+            animation: gradientBG 25s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CONTAINER PRINCIPAL (MOBILE-FIRST) */
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px 80px; /* Adiciona espaço no final para o "Eu te amo" */
+            text-align: center;
+        }
+
+        /* CONTEÚDO DA SURPRESA */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            width: 100%;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        #main-content.visible {
+            opacity: 1;
+        }
+
+        /* CARTA (Estilo Mobile) */
+        .love-letter {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 95%;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+        }
+        .typing-cursor {
+            display: inline-block;
+            background-color: white;
+            width: 2px;
+            height: 1.1rem;
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { background-color: transparent; } }
+
+        /* GALERIA DE FOTOS (Estilo Mobile - Empilhado) */
+        .photo-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .photo-card {
+            width: 80vw;
+            max-width: 250px;
+            height: auto;
+            border: 10px solid white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            object-fit: cover;
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .photo-card.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .photo-card:nth-child(1).visible { transform: translateY(0) scale(1) rotate(-6deg); transition-delay: 0.5s; }
+        .photo-card:nth-child(2).visible { transform: translateY(0) scale(1) rotate(2deg); transition-delay: 0s; }
+        .photo-card:nth-child(3).visible { transform: translateY(0) scale(1) rotate(7deg); transition-delay: 1s; }
+
+
+        /* FRASE FINAL (Estilo Mobile) */
+        .main-phrase {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            text-shadow: 0 0 10px #fff, 0 0 20px #e60073, 0 0 40px #e60073;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 2s ease-in-out;
+        }
+        .main-phrase.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* CORAÇÕES */
+        .heart {
+            position: fixed;
+            top: -10vh;
+            font-size: 1.5rem;
+            animation: fall linear forwards;
+            z-index: -1;
+            opacity: 0.6;
+        }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* --- MEDIA QUERY PARA TV E TELAS GRANDES --- */
+        @media (min-width: 1024px) {
+            body {
+                overflow: hidden; /* Esconde a rolagem na TV */
+            }
+            .container {
+                padding-bottom: 40px; /* Reseta o padding no modo TV */
+            }
+            #main-content {
+                gap: 60px;
+            }
+            .love-letter {
+                font-size: 2.2rem;
+                max-width: 80%;
+            }
+            .typing-cursor {
+                height: 2.2rem;
+            }
+            .photo-gallery {
+                flex-direction: row; /* Alinha as fotos lado a lado na TV */
+                gap: 30px;
+            }
+            .photo-card {
+                width: 280px;
+                height: 350px;
+            }
+            .main-phrase {
+                font-size: 9rem;
+            }
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400&display=swap');
+    </style>
+</head>
+<body>
+
+    <audio id="background-music" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="main-content">
+            <p id="love-letter-text" class="love-letter"></p>
+            <div id="photo-gallery-container" class="photo-gallery">
+                <img src="foto1.jpg" class="photo-card" alt="Memória 1">
+                <img src="foto2.jpg" class="photo-card" alt="Memória 2">
+                <img src="foto3.jpg" class="photo-card" alt="Memória 3">
+            </div>
+            <h1 id="main-phrase-text" class="main-phrase">Eu te amo. ❤️</h1>
+        </div>
+    </div>
+
+    <script>
+        // --- ELEMENTOS DA PÁGINA ---
+        const music = document.getElementById('background-music');
+        const mainContent = document.getElementById('main-content');
+        const loveLetterElement = document.getElementById('love-letter-text');
+        const photoCards = document.querySelectorAll('.photo-card');
+        const mainPhrase = document.getElementById('main-phrase-text');
+
+        // --- TEXTO DA CARTA ---
+        const fullText = "Desde que a gente começou a se conhecer, sinto que cada conversa, cada risada e cada momento com você tem sido especial de um jeito diferente. Não sei explicar, mas é como se eu quisesse estar sempre por perto, descobrir mais sobre você, sobre seus sonhos, suas manias, até seus silêncios. Eu não quero que isso seja só uma fase. Quero caminhar ao seu lado, criar histórias juntos e ser alguém que você possa contar de verdade. Talvez seja cedo pra dizer, mas não quero guardar o que sinto:";
+
+        // --- FUNÇÕES DE ANIMAÇÃO ---
+        function typeWriter(text, i, callback) {
+            if (i < text.length) {
+                loveLetterElement.innerHTML = text.substring(0, i + 1) + '<span class="typing-cursor"></span>';
+                setTimeout(() => typeWriter(text, i + 1, callback), 80);
+            } else {
+                if(loveLetterElement.querySelector('.typing-cursor')) {
+                   loveLetterElement.querySelector('.typing-cursor').style.display = 'none';
+                }
+                if (callback) callback();
+            }
+        }
+
+        function revealPhotos() {
+            photoCards.forEach(card => {
+                card.classList.add('visible');
+            });
+            setTimeout(revealFinalPhrase, 3000);
+        }
+
+        function revealFinalPhrase() {
+            mainPhrase.classList.add('visible');
+        }
+
+        // --- INÍCIO AUTOMÁTICO DA SEQUÊNCIA ---
+        function startTheShow() {
+            // Tenta tocar a música. Se falhar, adiciona um evento de clique no corpo.
+            music.play().catch(() => {
+                console.log("Autoplay da música foi bloqueado. Um toque na tela iniciará a música.");
+                document.body.addEventListener('click', () => music.play(), { once: true });
+            });
+            
+            // Mostra o container principal onde as animações vão acontecer
+            mainContent.style.display = 'flex';
+            
+            // Pausa inicial antes de tudo começar
+            setTimeout(() => {
+                mainContent.classList.add('visible');
+                
+                // Pausa antes de começar a digitar
+                setTimeout(() => {
+                    typeWriter(fullText, 0, () => {
+                        // Quando a digitação terminar, espera um pouco e revela as fotos
+                        setTimeout(revealPhotos, 2000);
+                    });
+                }, 1500);
+            }, 500);
+        }
+        
+        // Inicia tudo assim que a página carregar
+        window.addEventListener('load', startTheShow);
+
+
+        // --- FUNÇÃO DOS CORAÇÕES ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 6 + 8 + 's';
+            heart.innerText = ['❤️', '💖', '💕'][Math.floor(Math.random() * 3)];
+            heart.style.fontSize = Math.random() * 1 + 0.8 + 'rem';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 14000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
